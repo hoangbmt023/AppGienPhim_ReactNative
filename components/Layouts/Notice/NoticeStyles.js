@@ -1,14 +1,15 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     notice:{
         backgroundColor: '#222',
         padding: 15,
+        paddingBottom: 10,
         borderRadius: 5,
-        marginTop: 10,
     },
     text:{
         color: 'white',
+        marginBottom: 5
     },
 });
 
