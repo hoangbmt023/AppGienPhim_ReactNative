@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LoginContainer from '../../components/Login-container/LoginContainer';
-import { View, Text, TextInput, TouchableOpacity, Animated, Switch } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Đảm bảo đã import useNavigation
+import { View, Text, TouchableOpacity, Switch } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import FloatingLabelInput from '../../components/Login-container/FloatingLabelInput';
+import LoginBody from '../../components/Login-container/LoginBody';
+import Redirect from '../../components/Login-container/Redirect';
+import RecaptchaNotice from '../../components/Login-container/RecaptchaNotice';
 import styles from './LoginStyle';
 
 export default function Login() {
-    const navigation = useNavigation(); // Sử dụng hook useNavigation để lấy navigation
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [isEmailFocused, setEmailFocused] = useState(false);
-    const [isPasswordFocused, setPasswordFocused] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
-
-    const emailLabelPosition = useState(new Animated.Value(16))[0];
-    const passwordLabelPosition = useState(new Animated.Value(16))[0];
-
-    const animateLabel = (focus, labelPosition) => {
-        Animated.timing(labelPosition, {
-            toValue: focus ? -25 : 16,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-    };
 
     const handleSubmit = () => {
         if (!email || !password) {
@@ -34,78 +25,42 @@ export default function Login() {
     };
 
     const handleForgotPassword = () => {
-        navigation.navigate('ForgotPassword'); // Điều hướng tới màn hình Quên mật khẩu
+        navigation.navigate('ForgotPassword');
     };
 
     const handleHelp = () => {
-        navigation.navigate('Help'); // Điều hướng tới màn hình Cần trợ giúp
+        navigation.navigate('Help');
     };
 
     const handleRegister = () => {
-        navigation.navigate('Register'); // Điều hướng tới màn hình Đăng ký
+        navigation.navigate('Register');
     };
-
-    useEffect(() => {
-        animateLabel(isEmailFocused || email, emailLabelPosition);
-        animateLabel(isPasswordFocused || password, passwordLabelPosition);
-    }, [isEmailFocused, isPasswordFocused, email, password]);
 
     return (
         <>
             <LoginContainer />
-            <View style={styles.loginBody}>
+            <LoginBody>
                 <View style={styles.loginFormContainer}>
                     <View style={styles.loginTitle}>
                         <Text style={styles.loginTitleText}>Đăng Nhập</Text>
 
-                        <View style={styles.formGroup}>
-                            <TextInput
-                                style={[styles.loginFormInput, email && { borderColor: '#eeaf67' }]}
-                                value={email}
-                                onChangeText={(text) => setEmail(text)}
-                                onFocus={() => setEmailFocused(true)}
-                                onBlur={() => setEmailFocused(false)}
-                                placeholderTextColor="#aaa"
-                                keyboardType="email-address"
-                            />
-                            <Animated.Text
-                                style={[
-                                    styles.floatingLabel,
-                                    {
-                                        top: emailLabelPosition,
-                                        fontSize: email ? 16 : 16,
-                                        color: email || isEmailFocused ? '#eeaf67' : '#aaa',
-                                    },
-                                ]}
-                            >
-                                Tên Đăng Nhập
-                            </Animated.Text>
-                        </View>
+                        {/* Input Email */}
+                        <FloatingLabelInput
+                            label="Tên Đăng Nhập"
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType="email-address"
+                        />
 
-                        <View style={styles.formGroup}>
-                            <TextInput
-                                style={[styles.loginFormInput, password && { borderColor: '#eeaf67' }]}
-                                value={password}
-                                onChangeText={(text) => setPassword(text)}
-                                onFocus={() => setPasswordFocused(true)}
-                                onBlur={() => setPasswordFocused(false)}
-                                placeholderTextColor="#aaa"
-                                secureTextEntry
-                            />
-                            <Animated.Text
-                                style={[
-                                    styles.floatingLabel,
-                                    {
-                                        top: passwordLabelPosition,
-                                        fontSize: password ? 16 : 16,
-                                        color: password || isPasswordFocused ? '#eeaf67' : '#aaa',
-                                    },
-                                ]}
-                            >
-                                Mật khẩu
-                            </Animated.Text>
-                        </View>
+                        {/* Input Password */}
+                        <FloatingLabelInput
+                            label="Mật khẩu"
+                            value={password}
+                            onChangeText={setPassword}
+                            isSecure={true}
+                        />
 
+                        {/* Hiển thị lỗi nếu có */}
                         {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
 
                         <TouchableOpacity style={styles.loginFormButton} onPress={handleSubmit}>
@@ -129,15 +84,17 @@ export default function Login() {
                                 <Text style={styles.helpLink}>Cần Trợ Giúp?</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.signupContainer}>
-                            <Text style={styles.signupText}>Mới sử dụng GIENPHIM?</Text>
-                            <TouchableOpacity onPress={handleRegister}>
-                                <Text style={styles.signupLink}>Đăng Ký Ngay.</Text>
-                            </TouchableOpacity>
-                        </View>
+
+                        <Redirect
+                            label="Mới sử dụng GIENPHIM?"
+                            linkText="Đăng Ký Ngay."
+                            onPress={handleRegister}
+                        />
+
+                        <RecaptchaNotice />
                     </View>
                 </View>
-            </View>
+            </LoginBody>
         </>
     );
 }

@@ -1,11 +1,11 @@
-import {  View } from "react-native";
+import { View } from "react-native";
 import styles from './HomeStyles.js'
 import Notice from "../../components/Layouts/Notice/Notice.js";
 
-function Home(){
-    return(
+function Home() {
+    return (
         <View style={styles.containerMain} >
-            <Notice/>
+            <Notice />
         </View>
     );
 }

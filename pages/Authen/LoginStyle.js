@@ -5,16 +5,6 @@ const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
     loginBody: {
-        width: width * 0.9,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        position: 'absolute',
-        top: height * 0.2,
-        left: width * 0.05,
-        borderRadius: 5,
-        zIndex: 1,
-        paddingBottom: '2.5%',
-        justifyContent: 'center',
-        alignItems: 'center',
         paddingBottom: 30,
         minHeight: 100,
     },
@@ -57,12 +47,12 @@ export default StyleSheet.create({
     floatingLabel: {
         position: 'absolute',
         left: 12,
-        top: 6,
-        color: '#aaa',
         fontSize: 16,
-        pointerEvents: 'none',
-        transition: '0.3s ease all',
+        color: '#aaa',
+        zIndex: 1,
+        paddingHorizontal: 4,
     },
+
     loginFormButton: {
         backgroundColor: '#e50914',
         width: '100%',
@@ -183,5 +173,39 @@ export default StyleSheet.create({
         color: '#0071eb',
         marginLeft: 5,
         textDecorationLine: 'underline', // React Native doesn't support textDecoration: none, so this is an alternative
+    },
+    faqBox: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        padding: 15,
+        borderRadius: 5,
+        marginBottom: 15,
+    },
+    faqQuestion: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 6,
+    },
+
+    faqAnswer: {
+        fontSize: 15,
+        color: '#fff',
+        lineHeight: 20,
+    },
+
+    link: {
+        color: '#FFA725',
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+    },
+
+    backLinkContainer: {
+        marginTop: 25,
+        alignItems: 'flex-end',
+    },
+
+    backLink: {
+        color: '#FFA725',
+        fontSize: 16,
     },
 });
