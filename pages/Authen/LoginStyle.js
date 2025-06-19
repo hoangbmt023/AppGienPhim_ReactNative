@@ -208,4 +208,41 @@ export default StyleSheet.create({
         color: '#FFA725',
         fontSize: 16,
     },
+    phoneText: {
+        color: '#fff',
+        lineHeight: 20, // hoặc 1.2 * fontSize
+        fontSize: 16,   // 1.6rem ≈ 16px nếu mặc định font-size 10px
+    },
+    emailText: {
+        color: '#fff',
+        lineHeight: 20,
+        fontSize: 16,
+    },
+    signupNowText: {
+        fontSize: 16,
+        color: '#737373',
+        marginTop: 16,
+    },
+    signupNowLink: {
+        color: '#fff',
+        textDecorationLine: 'none', // hoặc 'underline' nếu cần
+        marginLeft: 5,
+    },
+    buttonBase: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        padding: 16,
+        borderRadius: 4,
+        width: '100%',
+        marginTop: 8,
+        gap: 10, // nếu không hoạt động bạn có thể dùng marginRight giữa icon & text
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,  // 1.6rem ≈ 16px
+        lineHeight: 20,
+        fontWeight: '700',
+    },
 });

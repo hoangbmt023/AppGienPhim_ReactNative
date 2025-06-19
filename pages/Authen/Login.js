@@ -8,6 +8,9 @@ import Redirect from '../../components/Login-container/Redirect';
 import RecaptchaNotice from '../../components/Login-container/RecaptchaNotice';
 import styles from './LoginStyle';
 
+import * as AuthenticationService from '../../services/AuthenticationService';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // nếu dùng AsyncStorage
+
 export default function Login() {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
@@ -15,14 +18,38 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!email || !password) {
             setErrorMessage('Vui lòng điền đầy đủ thông tin');
-        } else {
-            setErrorMessage('');
-            console.log('Đăng nhập thành công');
+            return;
+        }
+
+        setErrorMessage(''); // reset lỗi
+
+        const credentials = {
+            usernameOrEmail: email,
+            password: password,
+            rememberMe: rememberMe,
+        };
+
+        try {
+            const result = await AuthenticationService.login(credentials);
+
+            if (result.status) {
+                // Lưu token, bạn có thể dùng AsyncStorage hoặc custom hook của bạn
+                await AsyncStorage.setItem('token', result.token);
+
+                // Điều hướng tới Home
+                navigation.navigate('Home');
+            } else {
+                setErrorMessage(result.msg || 'Đăng nhập thất bại');
+            }
+        } catch (error) {
+            setErrorMessage(error.message || 'Đã có lỗi xảy ra, vui lòng thử lại');
         }
     };
+
+    // Các hàm điều hướng khác giữ nguyên
 
     const handleForgotPassword = () => {
         navigation.navigate('ForgotPassword');
@@ -61,7 +88,7 @@ export default function Login() {
                         />
 
                         {/* Hiển thị lỗi nếu có */}
-                        {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+                        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
 
                         <TouchableOpacity style={styles.loginFormButton} onPress={handleSubmit}>
                             <Text style={styles.loginFormButtonText}>Đăng Nhập</Text>
@@ -90,7 +117,6 @@ export default function Login() {
                             linkText="Đăng Ký Ngay."
                             onPress={handleRegister}
                         />
-
                         <RecaptchaNotice />
                     </View>
                 </View>
