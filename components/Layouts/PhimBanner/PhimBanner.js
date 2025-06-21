@@ -2,12 +2,15 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./PhimBannerStyles";
 import { useNavigation } from "@react-navigation/native";
 
-function PhimBanner(){
+function PhimBanner({phimId}){
 
     const navigation = useNavigation();
 
     const HandlePress = () => {
-        navigation.navigate('XemPhim');
+        navigation.navigate('XemPhim',{
+            id: phimId,
+            slugtap: "tap-01"
+        });
     }
 
     return(

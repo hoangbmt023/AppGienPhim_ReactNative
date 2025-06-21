@@ -3,9 +3,11 @@ import styles from "./FilmListStyles";
 import { useNavigation } from "@react-navigation/native";
 function FilmItem(){
     const navigation = useNavigation();
-    
+    const phimId = 1;
     const handlePress = () => {
-        navigation.navigate("Phim")
+        navigation.navigate("Phim",{
+            id: phimId
+        });
     }
 
     return(

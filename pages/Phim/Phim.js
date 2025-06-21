@@ -5,8 +5,14 @@ import PhimBanner from "../../components/Layouts/PhimBanner/PhimBanner.js";
 import BoxTitle from "../../components/Commons/BoxTitle.js";
 import FilmList from "../../components/Layouts/FilmList/FilmList.js";
 import TabsPhim from "../../components/Layouts/TabsPhim/TabsPhim.js";
+import { useRoute } from "@react-navigation/native";
+
 
 function Phim(){
+
+    const route = useRoute();
+    const {id} = route.params;
+
     return(
         <FlatList
             data={[1]} // dữ liệu giả, chỉ để FlatList hoạt động
@@ -15,7 +21,7 @@ function Phim(){
             ListHeaderComponent={
                 <View style={styles.containerMain}>
                     <Notice />
-                    <PhimBanner/>
+                    <PhimBanner phimId={id}/>
                     <TabsPhim/>
                     <BoxTitle>Phim Liên Quan</BoxTitle>
                     <FilmList/>
