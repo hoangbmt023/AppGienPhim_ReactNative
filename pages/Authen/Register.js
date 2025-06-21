@@ -8,25 +8,61 @@ import Redirect from '../../components/Login-container/Redirect';
 import RecaptchaNotice from '../../components/Login-container/RecaptchaNotice';
 import styles from './LoginStyle';
 
+import * as AuthenticationService from '../../services/AuthenticationService';
+
 export default function Register() {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [agree, setAgree] = useState(false);
+
+    // Chuyển thành object errors từng trường
+    const [errors, setErrors] = useState({});
+    // Lỗi chung từ server hoặc lỗi khác
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigation = useNavigation();
 
-    const handleSubmit = () => {
-        if (!email || !phoneNumber || !password || !confirmPassword || !agree) {
-            setErrorMessage('Vui lòng điền đầy đủ thông tin và đồng ý với các điều khoản.');
-        } else if (password !== confirmPassword) {
-            setErrorMessage('Mật khẩu và xác nhận mật khẩu không khớp.');
-        } else {
-            setErrorMessage('');
-            console.log('Đăng ký thành công!');
-            navigation.navigate('Login');
+    const validate = () => {
+        const newErrors = {};
+
+        if (!email) newErrors.email = 'Email không được để trống.';
+        // Bạn có thể thêm regex validate email nếu muốn
+        if (!phoneNumber) newErrors.phoneNumber = 'Số điện thoại không được để trống.';
+        if (!password) newErrors.password = 'Mật khẩu không được để trống.';
+        if (password !== confirmPassword) newErrors.confirmPassword = 'Mật khẩu xác nhận không khớp.';
+        if (!agree) newErrors.agree = 'Bạn cần đồng ý với điều khoản.';
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async () => {
+        if (!validate()) return;
+
+        setErrorMessage(''); // reset lỗi chung
+
+        const userData = {
+            email,
+            phoneNumber,
+            password,
+        };
+
+        try {
+            const response = await AuthenticationService.register(userData);
+
+            // Giả sử API trả về object { status: true/false, msg: "..." }
+            if (response.status) {
+                // Đăng ký thành công
+                navigation.navigate('Login');
+            } else {
+                // Hiển thị lỗi từ server
+                setErrorMessage(response.msg || 'Đăng ký thất bại');
+            }
+        } catch (error) {
+            setErrorMessage(error.message || 'Đã có lỗi xảy ra, vui lòng thử lại.');
         }
     };
 
@@ -49,6 +85,7 @@ export default function Register() {
                             onChangeText={setEmail}
                             keyboardType="email-address"
                         />
+                        {errors.email && <Text style={styles.errorMessage}>{errors.email}</Text>}
 
                         {/* Số điện thoại */}
                         <FloatingLabelInput
@@ -57,6 +94,7 @@ export default function Register() {
                             onChangeText={setPhoneNumber}
                             keyboardType="phone-pad"
                         />
+                        {errors.phoneNumber && <Text style={styles.errorMessage}>{errors.phoneNumber}</Text>}
 
                         {/* Mật khẩu */}
                         <FloatingLabelInput
@@ -65,6 +103,7 @@ export default function Register() {
                             onChangeText={setPassword}
                             isSecure={true}
                         />
+                        {errors.password && <Text style={styles.errorMessage}>{errors.password}</Text>}
 
                         {/* Xác nhận mật khẩu */}
                         <FloatingLabelInput
@@ -73,9 +112,14 @@ export default function Register() {
                             onChangeText={setConfirmPassword}
                             isSecure={true}
                         />
+                        {errors.confirmPassword && <Text style={styles.errorMessage}>{errors.confirmPassword}</Text>}
 
-                        {/* Hiển thị lỗi nếu có */}
-                        {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+                        {/* Lỗi chung */}
+                        {errorMessage ? (
+                            <Text style={[styles.errorMessage, { textAlign: 'center', marginVertical: 10 }]}>
+                                {errorMessage}
+                            </Text>
+                        ) : null}
 
                         {/* Đồng ý điều khoản */}
                         <View style={styles.agreeContainer}>
@@ -88,17 +132,18 @@ export default function Register() {
                                 Tôi đồng ý với{' '}
                                 <Text
                                     style={styles.link}
-                                    onPress={() => Linking.openURL('https://www.example.com/terms')}>
+                                    onPress={() => Linking.openURL('https://policies.google.com/terms?hl=vi')}>
                                     Điều khoản sử dụng
                                 </Text>{' '}
                                 và{' '}
                                 <Text
                                     style={styles.link}
-                                    onPress={() => Linking.openURL('https://www.example.com/privacy')}>
+                                    onPress={() => Linking.openURL('https://policies.google.com/privacy?hl=vi')}>
                                     Chính sách bảo mật
                                 </Text>
                             </Text>
                         </View>
+                        {errors.agree && <Text style={styles.errorMessage}>{errors.agree}</Text>}
 
                         {/* Nút đăng ký */}
                         <TouchableOpacity style={styles.loginFormButton} onPress={handleSubmit}>
