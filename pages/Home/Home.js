@@ -1,3 +1,4 @@
+
 import { FlatList, View } from "react-native";
 import styles from './HomeStyles.js'
 import Notice from "../../components/Layouts/Notice/Notice.js";
