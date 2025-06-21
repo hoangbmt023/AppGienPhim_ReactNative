@@ -6,6 +6,7 @@ import ForgotPassword from "../pages/Authen/ForgotPassword";
 import ResetPassword from "../pages/Authen/ResetPassword";
 import Help from "../pages/Authen/Help";
 import LienHe from "../pages/LienHe/LienHe";
+import GoiThanhVien from "../pages/GoiThanhVien/GoiThanhVien"
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ function AppNavigator() {
             <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }}></Stack.Screen>
             <Stack.Screen name="Help" component={Help} options={{ headerShown: false }}></Stack.Screen>
             <Stack.Screen name="Contact" component={LienHe} options={{ headerShown: false }}></Stack.Screen>
+            <Stack.Screen name="GoiThanhVien" component={GoiThanhVien} options={{ headerShown: false }}></Stack.Screen>
             <Stack.Screen name="Home" component={Home} options={{ headerShown: true }}></Stack.Screen>
             <Stack.Screen name="NotFound" component={""}></Stack.Screen>
         </Stack.Navigator >
