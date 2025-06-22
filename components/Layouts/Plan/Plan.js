@@ -1,19 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    LayoutAnimation,
+    Platform,
+    UIManager,
+    LogBox,
+} from 'react-native';
 import * as managerServices from '../../../services/ManagerService';
 import { formatVND } from '../../../utils/Format';
 import PlanStyle from './PlanStyle';
 
-// Hàm để viết hoa chữ cái đầu (để dùng cho key style: recommendedGreen, titleRed, ...)
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-function Plan({ children, deXuat, isRecommended, onSelect, data, onDataGoiThang, onDataGoiNam, color }) {
+function Plan({
+    children,
+    deXuat,
+    onSelect,
+    data,
+    onDataGoiThang,
+    onDataGoiNam,
+    selectedPlanId,
+    color
+}) {
     const [dataLuaChonGoiThang, setDataLuaChonGoiThang] = useState([]);
     const [dataLuaChonGoiNam, setDataLuaChonGoiNam] = useState([]);
     const parts = String(data?.moTaGoiTV || '').split('-');
 
+    const isSelected = selectedPlanId === data.goiTVId;
+    const isSuggested = data.tenGoiTV?.toLowerCase().includes('vip');
+
     useEffect(() => {
-        if (!data || !data.goiTVId) return;
+        if (!data?.goiTVId) return;
 
         const fetchApiLuaChon = async () => {
             try {
@@ -32,17 +55,25 @@ function Plan({ children, deXuat, isRecommended, onSelect, data, onDataGoiThang,
         fetchApiLuaChon();
     }, [data?.goiTVId]);
 
-    // Tạo dynamic style theo màu và đề xuất
     const dynamicStyles = [
         PlanStyle.plan,
         color && PlanStyle[color],
-        isRecommended && PlanStyle[`recommended${capitalize(color)}`]
+        (isSelected || (!selectedPlanId && isSuggested)) && PlanStyle[`recommended${capitalize(color)}`],
     ];
 
     const titleColorStyle = PlanStyle[`title${capitalize(color)}`] || {};
 
+    const toggleExpand = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        onSelect(isSelected ? null : data.goiTVId);
+    };
+
+    LogBox.ignoreLogs([
+        'setLayoutAnimationEnabledExperimental is currently a no-op'
+    ]);
+
     return (
-        <TouchableOpacity style={dynamicStyles} onPress={onSelect}>
+        <TouchableOpacity style={dynamicStyles} onPress={toggleExpand} activeOpacity={0.9}>
             {deXuat && (
                 <View style={PlanStyle.label}>
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 12 }}>Đề xuất</Text>
@@ -53,27 +84,31 @@ function Plan({ children, deXuat, isRecommended, onSelect, data, onDataGoiThang,
                 {children}
             </Text>
 
-            <Text style={PlanStyle.price}>
-                <Text style={PlanStyle.monthly}>
-                    {formatVND(Number(dataLuaChonGoiThang[0]?.giaGoiTV || 0))} / tháng
-                </Text>
-            </Text>
-
-            <Text style={PlanStyle.yearly}>
-                Hoặc trả trước theo năm:{'\n'}
-                <Text style={PlanStyle.highlight}>
-                    {formatVND(Number(dataLuaChonGoiNam[0]?.giaGoiTV || 0))} / năm
-                </Text>
-            </Text>
-
-            <View style={PlanStyle.planInfo}>
-                {parts.map((res, index) => (
-                    <Text key={index} style={PlanStyle.listItem}>
-                        <Text style={PlanStyle.listItemStar}>★ </Text>
-                        {res}
+            {isSelected && (
+                <>
+                    <Text style={PlanStyle.price}>
+                        <Text style={PlanStyle.monthly}>
+                            {formatVND(Number(dataLuaChonGoiThang[0]?.giaGoiTV || 0))} / tháng
+                        </Text>
                     </Text>
-                ))}
-            </View>
+
+                    <Text style={PlanStyle.yearly}>
+                        Hoặc trả trước theo năm:{'\n'}
+                        <Text style={PlanStyle.highlight}>
+                            {formatVND(Number(dataLuaChonGoiNam[0]?.giaGoiTV || 0))} / năm
+                        </Text>
+                    </Text>
+
+                    <View style={PlanStyle.planInfo}>
+                        {parts.map((res, index) => (
+                            <Text key={index} style={PlanStyle.listItem}>
+                                <Text style={PlanStyle.listItemStar}>★ </Text>
+                                {res.trim()}
+                            </Text>
+                        ))}
+                    </View>
+                </>
+            )}
         </TouchableOpacity>
     );
 }

@@ -62,3 +62,12 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
         handleError(error);
     }
 }
+
+export const getUserById = async (id) => {
+    try {
+        const res = await request.get(`/User/${id}`);
+        return res;
+    } catch (error) {
+        console.error("Lỗi lấy thông tin người dùng:", error);
+    }
+};

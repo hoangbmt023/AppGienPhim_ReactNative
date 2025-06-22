@@ -11,9 +11,9 @@ import LienHe from "../pages/LienHe/LienHe";
 import GoiThanhVien from "../pages/GoiThanhVien/GoiThanhVien"
 
 const Stack = createNativeStackNavigator();
-function AppNavigator () {
-    return(
-        <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false , contentStyle: { backgroundColor: '#434242' }} }>
+function AppNavigator() {
+    return (
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#434242' } }}>
             <Stack.Screen name="Home" component={Home}></Stack.Screen>
             <Stack.Screen name="XemPhim" component={XemPhim}></Stack.Screen>
             <Stack.Screen name="Phim" component={Phim}></Stack.Screen>

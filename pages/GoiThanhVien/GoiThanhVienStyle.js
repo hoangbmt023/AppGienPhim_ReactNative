@@ -1,87 +1,138 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
-const styles = StyleSheet.create({
-    userInfo: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 30,
-        color: 'white',
-        fontFamily: 'Roboto',
-        fontSize: 16,
-        textAlign: 'left',
+const { width, height } = Dimensions.get('window');
+
+export const styles = StyleSheet.create({
+    container: {
+        padding: 20,
     },
+
+    userInfo: {
+        alignItems: 'flex-start',
+        marginVertical: 10,
+    },
+
     userInfoItem: {
         marginBottom: 10,
-        marginHorizontal: 15,            // margin-inline: 15px
+        paddingLeft: 4,
+        maxWidth: width * 0.95,
     },
+
     userName: {
         fontWeight: '500',
+        color: 'white',
     },
+
     balance: {
         fontWeight: '500',
+        color: 'white',
     },
+
     currentPlan: {
         fontWeight: '500',
+        color: 'white',
     },
 
     userNameStrong: {
         color: '#03fd24',
-        backgroundColor: 'rgba(219, 232, 253, 0.4)',
-        padding: 7,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        padding: 6,
         borderRadius: 5,
+        fontSize: 14,
     },
+
     balanceStrong: {
         color: 'yellow',
-        backgroundColor: 'rgba(68, 202, 255, 0.4)',
-        padding: 7,
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        padding: 6,
         borderRadius: 5,
+        fontSize: 14,
     },
+
     currentPlanStrong: {
         color: 'red',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        padding: 7,
+        backgroundColor: 'rgba(255,255,255,0.8)',
+        padding: 6,
         borderRadius: 5,
+        fontSize: 14,
     },
 
     plans: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: 20,               // **Lưu ý: React Native chưa hỗ trợ gap. Có thể dùng margin bên trong item**
-        fontFamily: 'Arial',
+        marginTop: 20,
+    },
+
+    planBox: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        padding: 16,
+        borderRadius: 12,
+        marginVertical: 20,
+    },
+
+    priceText: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 5,
     },
 
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        gap: 10,              // React Native chưa hỗ trợ gap, dùng margin bên trong buttons
-        marginTop: 10,
-        paddingRight: 40,
+        justifyContent: 'space-between',
+        marginTop: 20,
+        paddingHorizontal: 20,
     },
 
     backBtn: {
         backgroundColor: 'rgb(101, 109, 117)',
-        borderWidth: 1,
-        borderColor: 'rgb(101, 109, 117)',
-        paddingVertical: 11,
-        paddingHorizontal: 30,
-        color: 'white',
-        fontWeight: 'bold',
-        fontFamily: 'Roboto',
-        fontSize: 14,
-        // cursor: 'pointer' -> không có trên RN
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        flex: 1,
+        marginRight: 10,
+        alignItems: 'center',
     },
 
     buyBtn: {
         backgroundColor: '#f23144',
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        flex: 1,
+        marginLeft: 10,
+        alignItems: 'center',
+    },
+
+    backBtnText: {
         color: 'white',
-        borderWidth: 1,
-        borderColor: '#f23144',
-        paddingVertical: 11,
-        paddingHorizontal: 30,
-        fontFamily: 'Roboto',
         fontWeight: 'bold',
         fontSize: 14,
     },
 
-    // Hover effects không có trong React Native
+    buyBtnText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 14,
+    },
+
+    loginFormContainer: {
+        paddingTop: 40,
+        paddingHorizontal: 20,
+        paddingBottom: 0,
+        width: '100%',
+    },
+
+    loginTitle: {
+        width: '100%',
+    },
+
+    loginTitleText: {
+        fontSize: width * 0.08,
+        fontWeight: 'bold',
+        color: '#fff',
+        textAlign: 'center',
+        marginBottom: 20,
+    },
 });

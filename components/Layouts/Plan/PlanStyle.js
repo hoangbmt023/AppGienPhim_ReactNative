@@ -2,19 +2,17 @@ import { StyleSheet } from 'react-native';
 
 const PlanStyle = StyleSheet.create({
     plan: {
-        borderWidth: 0.5,
-        borderColor: '#000000',
+        borderWidth: 1,
+        borderColor: '#444',
         borderRadius: 12,
-        padding: 20,
-        width: 260,
+        padding: 16,
+        marginBottom: 10,
+        width: '100%',
+        backgroundColor: '#1a1a1a',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.05,
-        shadowRadius: 8,
-        textAlign: 'center',
-        backgroundColor: '#fff',
-        position: 'relative',
-        fontFamily: 'Roboto',
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
 
     // Màu nền theo gói
@@ -62,8 +60,11 @@ const PlanStyle = StyleSheet.create({
     },
 
     title: {
-        marginVertical: 10,
         fontWeight: 'bold',
+        fontSize: 18,
+        color: 'white',
+        textAlign: 'center',
+        marginBottom: 5,
     },
 
     titleGreen: {
@@ -77,9 +78,9 @@ const PlanStyle = StyleSheet.create({
     },
 
     price: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: '#202124',
+        color: '#ff6262',
     },
 
     monthly: {
@@ -89,8 +90,7 @@ const PlanStyle = StyleSheet.create({
 
     yearly: {
         fontSize: 14,
-        color: '#cad3db',
-        marginTop: 5,
+        color: '#ccc',
     },
 
     highlight: {
@@ -99,21 +99,14 @@ const PlanStyle = StyleSheet.create({
     },
 
     planInfo: {
-        textAlign: 'left',
-        marginTop: 15,
+        marginTop: 12,
     },
 
     listItem: {
-        marginVertical: 8,
-        paddingLeft: 20,
-        color: '#cad3db',
-        position: 'relative',
+        marginVertical: 6,
+        color: '#ddd',
     },
-
     listItemStar: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
         color: '#fbbc05',
     },
 });
