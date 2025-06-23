@@ -62,3 +62,46 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
         handleError(error);
     }
 }
+
+export const GetUserById = async (userId) => {
+    try {
+        const response = await request.get(`/User/${userId}`);
+        return response;
+    } catch (error) {
+        handleError(error);
+    }
+}
+
+//update user info
+export const UpdateUserInfo = async (formData) => {
+    try {
+        const res = await request.put('/User/UserInfoUpdate', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return res;
+    } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+    }
+}
+
+// Lịch sử giao dịch người dùng
+export const fetchLichSuGiaoDichs = async (nguoiDungId, page, limit) => {
+    try {
+        const response = await request.get(`/User/LichSuGiaoDich/${nguoiDungId}`, {
+            params: { page, limit },
+        });
+
+        return response;  // <-- Đây là điểm quan trọng
+
+    } catch (error) {
+        console.error("Lỗi khi tải lịch sử giao dịch:", error);
+        return {
+            status: false,
+            data: [],
+            pagination: null,
+            msg: error.message || 'Lỗi không xác định'
+        };
+    }
+};

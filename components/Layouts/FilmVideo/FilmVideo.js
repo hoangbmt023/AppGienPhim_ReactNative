@@ -1,25 +1,25 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { WebView } from 'react-native-webview';
-import FilmTap from './FilmTap'; // bạn cần chuyển cả component này
-import FilmPanel from './FilmPanel'; // và cả cái này nữa
-import * as phimServices from "../../../services/PhimServices"
+import { useRoute } from '@react-navigation/native';
+import FilmTap from './FilmTap';
+import FilmPanel from './FilmPanel';
+import * as managerServices from '../../../services/ManagerService';
 import styles from './FilmVideoStyles';
 
 function FilmVideo({ id, tap, userId }) {
+
     const [isPlaying, setIsPlaying] = useState(false);
     const [dataTapPhim, setDataTapPhim] = useState([]);
     const [tapPhim, setTapPhim] = useState('');
     const [currentType, setCurrentType] = useState(null);
     const isFirstRun = useRef(true);
 
-    
-
     useEffect(() => {
         if (!id) return;
 
         const fetchApi = async () => {
-            const dataTap = await phimServices.phim(id);
+            const dataTap = await managerServices.Phim(id);
             const danhSachTap = dataTap.tapCuaPhim || [];
             setDataTapPhim(danhSachTap);
         };
@@ -39,8 +39,9 @@ function FilmVideo({ id, tap, userId }) {
         if (!tap || !userId) return;
 
         const fetchApiXuLyLichSuXem = async () => {
-            await phimServices.XuLyLichXuXem(id, userId, tap);
+            await managerServices.XuLyLichXuXem(id, userId, tap);
         };
+
         fetchApiXuLyLichSuXem();
     }, [tap]);
 
@@ -60,7 +61,7 @@ function FilmVideo({ id, tap, userId }) {
     }, [tapchon, currentType]);
 
     const Views = async () => {
-        await phimServices.addLuotXem(id, userId);
+        await managerServices.addLuotXem(id, userId);
         setIsPlaying(true);
     };
 
@@ -78,7 +79,7 @@ function FilmVideo({ id, tap, userId }) {
                         <Text style={styles.warning}>WEBSITE CÓ NHIỀU QUẢNG CÁO!</Text>
                         <Text style={styles.subtext}>KHÔNG CÓ QUẢNG CÁO THÌ DUY TRÌ WEBSITE LÀM SAO?!</Text>
                         <Text style={styles.support}>
-                            NẾU BẠN DÙNG CHẶN QUẢNG CÁO <Text style={styles.highlight}>VUI LÒNG TẮT</Text> ĐỂ ỦNG HỘ GIENPHIM NHÉ!{'\n'}
+                            NẾU BẠN DÙNG CHẶN QUẢNG CÁO <Text style={styles.highlight}>VUI LÒNG TẮT</Text> ĐỂ ỦNG HỘ GIENPHIM NHÉ!{''}
                             ĐÂY LÀ LINK PHIM FREE NÊN SẼ CÓ QUẢNG CÁO <Text style={styles.highlight}>CỜ BẠC</Text> VUI LÒNG CÂN NHẮC TRƯỚC KHI XEM!
                         </Text>
 
@@ -89,7 +90,6 @@ function FilmVideo({ id, tap, userId }) {
                 )}
             </View>
 
-            {/* Tùy chỉnh lại component FilmPanel/FIlmTap cho React Native nếu chưa làm */}
             <FilmPanel data={dataTapPhim} nguoiDungId={userId} idphim={id} slugtap={tap} onSelect={() => setIsPlaying(false)} />
 
             {dataTapPhim.some(t => t.linkChinh) && (
@@ -125,6 +125,6 @@ function FilmVideo({ id, tap, userId }) {
             )}
         </ScrollView>
     );
-};
+}
 
 export default FilmVideo;

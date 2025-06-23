@@ -1,29 +1,10 @@
 import { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import styles from './TabsPhimStyles';
-const data = {
-  theLoai: [
-    { theLoaiId: 1, tenTL: "Haha" },
-    { theLoaiId: 2, tenTL: "Haha2" }
-  ],
-  quocGia: [
-    { quocGiaId: 1, tenQG: "kkkk" },
-    { quocGiaId: 2, tenQG: "kkkk2" }
-  ],
-  thoiLuongP: "2phut/tap",
-  luotThichP: 2,
-  luotDislikeP: 2,
-  tenCTSXP: "Công ty ABC"
-};
 
 
-const dataTap = [
-    {tenFile: "1"},
-    {tenFile: "2"}
-]
 
-
-function Detail(/*{ data, dataTap }*/) {
+function Detail({ data, dataTap }) {
   const [tapMoiNhat, setTapMoiNhat] = useState(null);
   const [dataTheLoai, setDataTheLoai] = useState([]);
   const [dataQuocGia, setDataQuocGia] = useState([]);

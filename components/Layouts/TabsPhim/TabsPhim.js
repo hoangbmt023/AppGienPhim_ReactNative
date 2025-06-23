@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
-
 import styles from './TabsPhimStyles';
 import Detail from './Detail';
 import Character from './Character';
 import Trailer from './Trailer';
 import Avatar from './Avatar';
+import * as managerServices from "../../../services/ManagerService"
 
 function TabsPhim({ id }) {
   const [activeTab, setActiveTab] = useState('info');
@@ -17,7 +17,7 @@ function TabsPhim({ id }) {
     if (!id) return;
 
     const fetchApi = async () => {
-      const result = await phimServices.phim(id);
+      const result = await managerServices.Phim(id);
       setDataPhim(result.data);
       setDataTap(result.tapCuaPhim);
     };

@@ -1,38 +1,66 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./FilmBannerListStyles";
+import { useEffect, useState } from "react";
+import { formatYear } from "../../../utils/Format";
+import { useNavigation } from "@react-navigation/native";
 
-function FilmBanner() {
+function FilmBanner({ data }) {
+    const navigation = useNavigation();
+
+    const [dataPhim, setDataPhim] = useState([]);
+    const [rating, setRating] = useState("0");
+    useEffect(() => {
+        if (data?.theLoai) {
+            setDataPhim(data.theLoai);
+        }
+
+        const rate = ((data.luotThichP / (data.luotThichP + data.luotDislikeP)) * 10).toFixed(1);
+        if (isNaN(rate)) {
+            setRating("0")
+        } else {
+            setRating(rate);
+        }
+    }, [data]);
+
+    const HandlePress = (phimId) => {
+        navigation.navigate('Phim',{
+            id: phimId
+        })
+    }
+
     return (
         <>
             <View style={styles.banner}>
-                <Image style={styles.bgImg} source={{ uri: 'https://cdn.animevietsub.red/data/big_banner/2024/11/30/animevsub-02NnXF2KvW.jpeg' }} />
+                <Image style={styles.bgImg} source={{ uri: data.avatarP }} />
                 <View style={styles.overlayBanner}></View>
 
                 <View style={styles.contentBanner}>
-                    <Text style={styles.titleBanner}>Phạm Trọng Huy Hoàng </Text>
+                    <Text style={styles.titleBanner} numberOfLines={2} ellipsizeMode="tail">{data.tenP}</Text>
                     <Text style={{ color: "yellow" }} >Phim Xem Nhiều Nhất</Text>
 
                     <View style={styles.infoBanner}>
-                        <Text style={styles.tagBanner}>⭐ 10</Text>
-                        <Text style={styles.thoiLuongBanner}> ⏳ 24 Phút/Tập</Text>
-                        <Text style={styles.ngayPhatHanh}>📅 2024</Text>
+                        <Text style={styles.tagBanner}>⭐ {rating}</Text>
+                        <Text style={styles.thoiLuongBanner}> ⏳ {data.thoiLuongP}</Text>
+                        <Text style={styles.ngayPhatHanh}>📅 {formatYear(data.ngayPhatHanhP)}</Text>
                     </View>
                     <View style={styles.moTaBanner}>
-                        <Text style={styles.moTaBannerText}>kdsodskdoskdoskdoasdoa áodkaosd sndad mnasidn ádnmasidnaids ád jidsjdi dsjdisdja sadjaisdja áda jsdiasjdi ádji</Text>
+                        <Text style={styles.moTaBannerText} numberOfLines={4} >{data.moTaP}</Text>
                     </View>
-                    <Text style={styles.studioBanner}>🏢 Studio: HuyHoang</Text>
+                    <Text style={styles.studioBanner}>🏢 Studio: {data.tenCTSXP}</Text>
 
                     <View style={styles.genresRow}>
                         <Text style={styles.genresBanner}>📌 Thể loại:</Text>
-                        <View style={styles.itemGenresBannerWrapper}>
-                            <Text style={styles.itemGenresBanner}>Tình yêu</Text>
-                        </View>
+                        {dataPhim.slice(0, 3).map((res) => (
+                            <View key={res.theLoaiId} style={styles.itemGenresBannerWrapper}>
+                                <Text style={styles.itemGenresBanner}>{res.tenTL}</Text>
+                            </View>
+                        ))}
                     </View>
 
-                    <TouchableOpacity style={styles.watchBTN}>
+                    <TouchableOpacity onPress={() => HandlePress(data.phimId)} style={styles.watchBTN}>
                         <Text style={styles.watchBTNText}>▶ Xem Phim</Text>
                     </TouchableOpacity>
-                    
+
                 </View>
             </View>
         </>

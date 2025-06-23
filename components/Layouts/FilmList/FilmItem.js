@@ -1,20 +1,27 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./FilmListStyles";
 import { useNavigation } from "@react-navigation/native";
-function FilmItem(){
+function FilmItem({data,type}){
     const navigation = useNavigation();
-    const phimId = 1;
+
     const handlePress = () => {
-        navigation.navigate("Phim",{
-            id: phimId
-        });
+        if(type === "search"){
+            navigation.navigate("Home", {
+            screen: "Phim",
+            params: { id: data.phimId }
+            });
+        }else{
+            navigation.navigate("Phim",{
+                id: data.phimId
+            });
+        }
     }
 
     return(
         <View style={styles.filmItem}>
             <TouchableOpacity style={styles.filmTitle} onPress={handlePress}>
-                <Image style={styles.filmImage} source={{uri: 'https://cdn.animevietsub.lol/data/poster/2025/04/06/animevsub-BkieXOZO6L.jpg'}}/>
-                <Text style={styles.filmName}>Huy Hoang</Text>
+                <Image style={styles.filmImage} source={{uri: data.avatarPoster}}/>
+                <Text style={styles.filmName} numberOfLines={1} ellipsizeMode="tail">{data.tenP}</Text>
             </TouchableOpacity>
         </View>
     );

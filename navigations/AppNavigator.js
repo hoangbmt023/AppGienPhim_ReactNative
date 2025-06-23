@@ -9,22 +9,30 @@ import ResetPassword from "../pages/Authen/ResetPassword";
 import Help from "../pages/Authen/Help";
 import LienHe from "../pages/LienHe/LienHe";
 import GoiThanhVien from "../pages/GoiThanhVien/GoiThanhVien"
+import SearchPhim from "../pages/SearchPhim/SearchPhim";
+import History from "../pages/History/History";
+import BottomTabNavigator from "../components/Footer/BottomTabNavigator";
+import InfoAccount from "../pages/Account/Account";
+import NapTienScreen from "../pages/NapTien/NapTien";
+import PhuongThucThanhToan from "../components/Layouts/PhuongThucThanhToan/PhuongThucThanhToan";
+import ThanhToan from "../components/Layouts/PhuongThucThanhToan/ThanhToan";
+import LichSuGiaoDich from "../pages/LichSuGiaoDich/LichSuGiaoDich";
+import HomeStack from "./Stacks/HomeStack";
+import AccoutStack from "./Stacks/AccoutStack";
+import WalletStack from "./Stacks/WalletStack";
 
 const Stack = createNativeStackNavigator();
-function AppNavigator () {
-    return(
-        <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false , contentStyle: { backgroundColor: '#434242' }} }>
-            <Stack.Screen name="Home" component={Home}></Stack.Screen>
-            <Stack.Screen name="XemPhim" component={XemPhim}></Stack.Screen>
-            <Stack.Screen name="Phim" component={Phim}></Stack.Screen>
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}></Stack.Screen>
-            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }}></Stack.Screen>
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }}></Stack.Screen>
+function AppNavigator() {
+    return (
+        <Stack.Navigator initialRouteName="Footer" screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#434242' } }}>
+
+            <Stack.Screen name="Footer" component={BottomTabNavigator} />
+
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }}></Stack.Screen>
-            <Stack.Screen name="Help" component={Help} options={{ headerShown: false }}></Stack.Screen>
-            <Stack.Screen name="Contact" component={LienHe} options={{ headerShown: false }}></Stack.Screen>
-            <Stack.Screen name="GoiThanhVien" component={GoiThanhVien} options={{ headerShown: false }}></Stack.Screen>
-            <Stack.Screen name="NotFound" component={""}></Stack.Screen>
+
         </Stack.Navigator >
     );
 }

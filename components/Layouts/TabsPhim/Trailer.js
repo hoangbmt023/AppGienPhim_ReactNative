@@ -3,7 +3,7 @@ import { WebView } from 'react-native-webview'; // Nếu dùng Expo: `expo insta
 import styles from './TabsPhimStyles';
 const data = { traiLerP: "https://www.youtube.com/watch?v=0NiLuo4vxp8"}
 
-function Trailer(/*{ data }*/) {
+function Trailer({ data }) {
   return (
     <View style={styles.wrapperTrailer}>
       <WebView

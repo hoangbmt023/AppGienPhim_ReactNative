@@ -1,21 +1,29 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
+
 
 // Lấy token
 export async function getToken() {
-    return await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem('token');
+    console.log("✅ Token lưu trong AsyncStorage:");
+    return token;
 }
 
 // Dịch token
 export async function decodeToken() {
-    const token = await getToken();
-
-    if (!token) return null;
+    const token = await AsyncStorage.getItem('token');
+    
+    if (!token || typeof token !== 'string' || !token.includes(".")) {
+        console.log("❌ Token không hợp lệ hoặc thiếu:", token);
+        return null;
+    }
 
     try {
-        return jwtDecode(token);
+        const decoded = jwtDecode(token);
+        console.log("✅ Token giải mã thành công:");
+        return decoded;
     } catch (error) {
-        console.log("Giải mã token thất bại");
+        console.log("❌ Giải mã token thất bại:", error.message);
         return null;
     }
 }

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     containerPhim: {
         position: 'relative',
         flexDirection: 'column',
-        padding: 30,
+        padding: 26,
         zIndex: 2
     },
     PhimInfoBanner: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         fontWeight: "700"
     },
     phimDetails: {
-        marginTop: 20,
+        marginTop: 2,
         flex: 1,
         alignSelf: 'stretch',
         alignItems: 'flex-start'
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
     luotXem: {
         color: '#ddd',
         fontSize: 16,
-        marginTop: 6,
+        marginTop: 4,
+        
     }
 });
 

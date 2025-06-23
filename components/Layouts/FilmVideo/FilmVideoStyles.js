@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     webview: {
-        width: '100%',
-        height: '100%',
+        width: '340',
+        height: '40',
         flex: 1,
     },
     overlay: {

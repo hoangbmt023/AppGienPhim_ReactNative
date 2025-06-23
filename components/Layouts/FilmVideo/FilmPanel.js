@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
- import * as phimServices from '../../../services/PhimServices';
+import * as managerServices from '../../../services/ManagerService';
 import styles from './FilmVideoStyles';
-function FilmPanel({ data, onSelect, nguoiDungId }){
+
+function FilmPanel({ data, onSelect, nguoiDungId }) {
     const navigation = useNavigation();
     const route = useRoute();
     const { id, tap } = route.params;
-
     const [dataTap, setDataTap] = useState([]);
     const [tapTiep, setTapTiep] = useState('');
     const [checkLikeDislike, setCheckLikeDislike] = useState([]);
 
     const xuLyLikeDislike = async (id, nguoiDungId, isLike, isDislike) => {
-        await phimServices.XuLyLuotLikeDislike(id, nguoiDungId, isLike, isDislike);
+        await managerServices.XuLyLuotLikeDislike(id, nguoiDungId, isLike, isDislike);
         fetchApi();
     };
 
     const fetchApi = async () => {
-        const result = await phimServices.CheckLikeDislikeUser(id, nguoiDungId);
+        const result = await managerServices.CheckLikeDislikeUser(id, nguoiDungId);
         setCheckLikeDislike(result.data);
     };
 
@@ -53,40 +53,44 @@ function FilmPanel({ data, onSelect, nguoiDungId }){
                 style={styles.button}
                 onPress={() => {
                     onSelect();
-                    navigation.navigate('FilmVideoScreen', { id, tap: tapTiep });
+                    navigation.navigate('XemPhim', { id, tap: tapTiep });
                 }}
             >
                 <Text style={styles.text}>▶ Tập tiếp</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                style={[styles.button, daThich && styles.active]}
-                onPress={() =>
-                    xuLyLikeDislike(id, nguoiDungId, !daThich, false)
-                }
-            >
-                <Text style={styles.text}>💡 Thích phim</Text>
-            </TouchableOpacity>
+            {nguoiDungId && (
+                <>
+                    <TouchableOpacity
+                        style={[styles.button, daThich && styles.active]}
+                        onPress={() =>
+                            xuLyLikeDislike(id, nguoiDungId, !daThich, false)
+                        }
+                    >
+                        <Text style={styles.text}>💡 Thích phim</Text>
+                    </TouchableOpacity>
 
-            <TouchableOpacity
-                style={[styles.button, khongThich && styles.active]}
-                onPress={() =>
-                    xuLyLikeDislike(id, nguoiDungId, false, !khongThich)
-                }
-            >
-                <Text style={styles.text}>⭐ Không thích</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.button, khongThich && styles.active]}
+                        onPress={() =>
+                            xuLyLikeDislike(id, nguoiDungId, false, !khongThich)
+                        }
+                    >
+                        <Text style={styles.text}>⭐ Không thích</Text>
+                    </TouchableOpacity>
+                </>
+            )}
 
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('FilmDetailScreen', { id })}
+                onPress={() => navigation.navigate('Phim', { id })}
             >
                 <Text style={styles.text}>📺 Chi tiết phim</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('ContactScreen')}
+                onPress={() => navigation.navigate('Contact')}
             >
                 <Text style={styles.text}>⚠ Báo lỗi</Text>
             </TouchableOpacity>
@@ -95,14 +99,22 @@ function FilmPanel({ data, onSelect, nguoiDungId }){
                 <Text style={styles.text}>⬇ Tải về</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('HistoryScreen')}
-            >
-                <Text style={styles.text}>🕒 Lịch sử xem</Text>
-            </TouchableOpacity>
-        </ScrollView>
+            {nguoiDungId && (
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() =>
+                        navigation.navigate('Account', {
+                            screen: 'History'
+                        })
+                    }
+                >
+                    <Text style={styles.text}>🕒 Lịch sử xem</Text>
+                </TouchableOpacity>
+            )
+            }
+        </ScrollView >
     );
+
 };
 
 
