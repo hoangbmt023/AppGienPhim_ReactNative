@@ -12,12 +12,23 @@ global.FileReader = global.FileReader || function () { };
 import axios from "axios";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
-
+import * as Linking from 'expo-linking';
 import AppNavigator from './navigations/AppNavigator';
+
+// Cấu hình linking
+const linking = {
+    prefixes: ['gienphim://'],
+    config: {
+        screens: {
+            ResetPassword: 'reset-password', // khớp với màn hình đặt tên trong stack navigator
+            // Các màn khác nếu có...
+        },
+    },
+};
 
 export default function App() {
     return (
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
             <AppNavigator />
             <StatusBar style="auto" />
         </NavigationContainer>

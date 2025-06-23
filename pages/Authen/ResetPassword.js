@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import LoginContainer from '../../components/Login-container/LoginContainer';
 import FloatingLabelInput from '../../components/Login-container/FloatingLabelInput';
 import LoginBody from '../../components/Login-container/LoginBody';
 import styles from './LoginStyle';
 
+// Import service gọi API
+import * as AuthenticationService from '../../services/AuthenticationService';
+
 export default function ResetPassword() {
     const navigation = useNavigation();
     const route = useRoute();
 
-    const { token, email } = route.params || {}; // Nhận từ params khi điều hướng từ email
+    // Lấy token và email từ params deep link
+    const { token, email } = route.params || {};
+
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!token || !email) {
@@ -22,7 +28,10 @@ export default function ResetPassword() {
         }
     }, [token, email]);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        setError('');
+        setSuccessMessage('');
+
         if (!newPassword || !confirmPassword) {
             setError('Mật khẩu không được để trống.');
             return;
@@ -33,20 +42,25 @@ export default function ResetPassword() {
             return;
         }
 
-        setError('');
-        setSuccessMessage('Mật khẩu đã được thay đổi thành công.');
+        if (!token || !email) {
+            setError('Thông tin không hợp lệ hoặc thiếu.');
+            return;
+        }
 
-        // Giả lập delay chuyển về Login
-        setTimeout(() => navigation.navigate('Login'), 2000);
+        setLoading(true);
 
-        // Nếu bạn có tích hợp API thực:
-        // try {
-        //     const response = await AuthenticationService.resetPassword(token, email, newPassword);
-        //     setSuccessMessage(response.message || 'Mật khẩu đã được thay đổi thành công.');
-        //     setTimeout(() => navigation.navigate('Login'), 2000);
-        // } catch (err) {
-        //     setError(err.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
-        // }
+        try {
+            // Gọi API reset password thực tế
+            const response = await AuthenticationService.resetPassword(token, email, newPassword);
+
+            setSuccessMessage(response.message || 'Mật khẩu đã được thay đổi thành công.');
+
+            setTimeout(() => navigation.navigate('Login'), 2000);
+        } catch (err) {
+            setError(err.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -57,15 +71,11 @@ export default function ResetPassword() {
                     <View style={styles.loginTitle}>
                         <Text style={styles.loginTitleText}>Đổi lại mật khẩu</Text>
 
-                        {/* Lỗi */}
-                        {error && <Text style={styles.errorMessage}>{error}</Text>}
-                        {successMessage && (
-                            <Text style={[styles.errorMessage, { color: 'green' }]}>
-                                {successMessage}
-                            </Text>
-                        )}
+                        {error ? <Text style={styles.errorMessage}>{error}</Text> : null}
+                        {successMessage ? (
+                            <Text style={[styles.errorMessage, { color: 'green' }]}>{successMessage}</Text>
+                        ) : null}
 
-                        {/* Mật khẩu mới */}
                         <FloatingLabelInput
                             label="Mật khẩu mới"
                             value={newPassword}
@@ -73,7 +83,6 @@ export default function ResetPassword() {
                             secureTextEntry
                         />
 
-                        {/* Xác nhận mật khẩu */}
                         <FloatingLabelInput
                             label="Xác nhận mật khẩu"
                             value={confirmPassword}
@@ -81,9 +90,16 @@ export default function ResetPassword() {
                             secureTextEntry
                         />
 
-                        {/* Submit */}
-                        <TouchableOpacity style={styles.loginFormButton} onPress={handleSubmit}>
-                            <Text style={styles.loginFormButtonText}>Thay đổi mật khẩu</Text>
+                        <TouchableOpacity
+                            style={styles.loginFormButton}
+                            onPress={handleSubmit}
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <ActivityIndicator color="#fff" />
+                            ) : (
+                                <Text style={styles.loginFormButtonText}>Thay đổi mật khẩu</Text>
+                            )}
                         </TouchableOpacity>
                     </View>
                 </View>

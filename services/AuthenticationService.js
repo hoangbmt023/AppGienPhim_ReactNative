@@ -45,6 +45,16 @@ export const forgotPassword = async (email) => {
     }
 }
 
+//app phim
+export const verifyOtp = async (email, otp) => {
+    try {
+        const response = await request.post('/User/verify-otp', { email, otp });
+        return response;
+    } catch (error) {
+        handleError(error); // hàm xử lý lỗi bạn đã có
+    }
+};
+
 export const resetPassword = async (token, email, newPassword) => {
     try {
         const response = await request.post('/User/reset-password', { token, email, newPassword });
