@@ -40,7 +40,10 @@ export default function Login() {
                 await AsyncStorage.setItem('token', result.token);
 
                 // Điều hướng tới Home
-                navigation.navigate('Home');
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Footer' }], // Đây là nơi chứa BottomTabNavigator
+                });
             } else {
                 setErrorMessage(result.msg || 'Đăng nhập thất bại');
             }

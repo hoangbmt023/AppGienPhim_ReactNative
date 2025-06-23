@@ -5,7 +5,7 @@ function Avatar({ data }) {
   return (
     <View style={styles.wrapper}>
       <View style={styles.avatarContainer}>
-        <Image source={{ uri: "https://cdn.animevietsub.red/data/big_banner/2024/11/30/animevsub-02NnXF2KvW.jpeg" }} style={styles.image} />
+        <Image source={{ uri: data.avatarP }} style={styles.image} />
         <View style={styles.logoWrapper}>
           <Image source={logo} style={styles.logo} resizeMode="contain" />
         </View>

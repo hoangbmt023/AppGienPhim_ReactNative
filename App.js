@@ -8,12 +8,13 @@ if (window.__FETCH_SUPPORT__) {
 global.Blob = global.Blob || function () { };
 global.FileReader = global.FileReader || function () { };
 
-// Bây giờ mới import các thư viện khác
-import axios from "axios";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
 import AppNavigator from './navigations/AppNavigator';
+import Header from "./components/Header/Header";
+
 
 // Cấu hình linking
 const linking = {
@@ -28,7 +29,8 @@ const linking = {
 
 export default function App() {
     return (
-        <NavigationContainer linking={linking}>
+        <NavigationContainer>
+            <Header/>
             <AppNavigator />
             <StatusBar style="auto" />
         </NavigationContainer>

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 24,
         maxWidth: 1300,           // React Native chấp nhận số, tính theo điểm ảnh
-        marginBottom: 60,
+        marginBottom: 80,
         margin: 10,
     },
 });

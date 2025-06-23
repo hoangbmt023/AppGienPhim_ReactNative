@@ -22,7 +22,7 @@ function Phim(){
                 <View style={styles.containerMain}>
                     <Notice />
                     <PhimBanner phimId={id}/>
-                    <TabsPhim/>
+                    <TabsPhim id={id}/>
                     <BoxTitle>Phim Liên Quan</BoxTitle>
                     <FilmList/>
                 </View>

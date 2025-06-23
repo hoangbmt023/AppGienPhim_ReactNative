@@ -13,18 +13,19 @@ export async function getToken() {
 
 // Dịch token
 export async function decodeToken() {
+    const token = await AsyncStorage.getItem('token');
+    
+    if (!token || typeof token !== 'string' || !token.includes(".")) {
+        console.log("❌ Token không hợp lệ hoặc thiếu:", token);
+        return null;
+    }
+
     try {
-        const token = await getToken();
-
-        if (!token || typeof token !== 'string' || !token.includes('.')) {
-            console.log("Token không hợp lệ hoặc không tồn tại:", token);
-            return null;
-        }
-
-        // Sử dụng jwtDecode thay vì jwt_decode
-        return jwtDecode(token);
+        const decoded = jwtDecode(token);
+        console.log("✅ Token giải mã thành công:");
+        return decoded;
     } catch (error) {
-        console.log("Giải mã token thất bại:", error.message);
+        console.log("❌ Giải mã token thất bại:", error.message);
         return null;
     }
 }

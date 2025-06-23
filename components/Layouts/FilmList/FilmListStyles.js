@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   filmTitle: {
     color: "red",
     textAlign: "center",
+
   },
   filmName:{
     color: "white",

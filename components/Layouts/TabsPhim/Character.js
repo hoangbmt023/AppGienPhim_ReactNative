@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import styles from './TabsPhimStyles';
-const data = {
-  dienVien: [
-    { dienVienId: 1 , tenDV: "Hoang" },
-    { dienVienId: 2 , tenDV: "Hoang1" },
-    { dienVienId: 3 , tenDV: "Hoang2" }
-  ]
-};
 
-function Character(/*{data}*/) {
+function Character({data}) {
   const [dataDienVien, setDataDienVien] = useState([]);
 
   useEffect(() => {

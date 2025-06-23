@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
         borderRadius: 4,
     },
     moTaBanner:{
-        height: "36%"
+        height: "30%"
     },
     moTaBannerText: {
-        fontSize: 18,
+        fontSize: 17,
         color: "white",
         textAlign: 'left',
         marginVertical: 8,
