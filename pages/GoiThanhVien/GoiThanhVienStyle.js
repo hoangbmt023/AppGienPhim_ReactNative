@@ -5,6 +5,7 @@ const { width, height } = Dimensions.get('window');
 export const styles = StyleSheet.create({
     container: {
         padding: 20,
+        marginBottom: 100
     },
 
     userInfo: {
@@ -122,6 +123,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 0,
         width: '100%',
+        marginBottom: 200
     },
 
     loginTitle: {

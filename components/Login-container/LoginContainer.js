@@ -2,15 +2,16 @@ import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const LoginContainer = () => {
+const LoginContainer = ({anLogo}) => {
     return (
         <ImageBackground
             source={{ uri: 'https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQZjfXldWj-AR1QUOFBUVqe09pU1x8uHoPjWUUglrvEDlYLyPKsKe94fK_yL2d-GVxgOr7U-u_f0nY2UOOdLDkZ8CsHIwMHiy7rXgTbNDeeG5Jh5pgIiuTfFDS7jpwbwgum85LZveLvxlVUqWN94dlXlO6z8.jpg?r=fa8' }}
             style={styles.container}
         >
-            <View style={styles.header}>
+            { !anLogo && <View style={styles.header}>
                 <Text style={styles.headerText}>GIENPHIM</Text>
             </View>
+            }
             <View style={styles.overlay}></View>
         </ImageBackground>
     );

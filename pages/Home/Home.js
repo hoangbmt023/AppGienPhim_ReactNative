@@ -47,12 +47,6 @@ function Home() {
                     <RenderPagination data={pagination} onPageChange={setCurrentPage} />
                     <SeeMore>Xem Thêm</SeeMore>
                     <FilmRanking>Top Lượt Xem</FilmRanking>
-
-                    {/* ✅ Nút chuyển trang */}
-                    <Button
-                        title="Chuyển sang Gói Thành Viên"
-                        onPress={() => navigation.navigate("GoiThanhVien")}
-                    />
                 </View>
             }
         />

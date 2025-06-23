@@ -69,7 +69,7 @@ export default function GoiThanhVien({ navigation }) {
             try {
                 console.log('Fetching user data for userId:', userId);
 
-                const resultU = await authServices.getUserById(userId);
+                const resultU = await authServices.GetUserById(userId);
                 setDataUser(resultU || {});
 
                 const resultLGTV = await managerServices.getListGoiThanhVien();
@@ -231,7 +231,7 @@ export default function GoiThanhVien({ navigation }) {
                 dataUser.id
             );
 
-            const updatedUser = await authServices.getUserById(dataUser.id);
+            const updatedUser = await authServices.GetUserById(dataUser.id);
             setDataUser(updatedUser || {});
 
             const updatedCTGoiTVUser = await managerServices.GetChiTietGoiTVByUser(userId);
@@ -311,7 +311,7 @@ export default function GoiThanhVien({ navigation }) {
 
     return (
         <>
-            <LoginContainer />
+            <LoginContainer anLogo={true} />
             <LoginBody>
                 <View style={styles.loginFormContainer}>
                     <View style={styles.loginTitle}>
@@ -342,12 +342,12 @@ export default function GoiThanhVien({ navigation }) {
                         <View style={styles.userInfo}>
                             <View style={styles.userInfoItem}>
                                 <Text style={styles.userName}>
-                                    Thời gian bắt đầu: <Text style={styles.userNameStrong}>{formatDate(dataCTGoiTVUser?.ngayBatDau)}</Text>
+                                    Thời gian bắt đầu: <Text style={styles.userNameStrong}>{dataCTGoiTVUser.data ? formatDate(dataCTGoiTVUser.data[0]?.ngayBatDau) : ""}</Text>
                                 </Text>
                             </View>
                             <View style={styles.userInfoItem}>
                                 <Text style={styles.userName}>
-                                    Thời gian kết thúc: <Text style={styles.userNameStrong}>{formatDate(dataCTGoiTVUser?.ngayKetThuc)}</Text>
+                                    Thời gian kết thúc: <Text style={styles.userNameStrong}>{dataCTGoiTVUser.data ? formatDate(dataCTGoiTVUser.data[0]?.ngayKetThuc) : ""}</Text>
                                 </Text>
                             </View>
                         </View>

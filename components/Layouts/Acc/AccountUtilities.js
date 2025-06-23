@@ -17,7 +17,7 @@ const utilities = [
   {
     title: 'Đổi mật khẩu',
     icon: 'key-outline',
-    navigateTo: 'ChangePassword',
+    navigateTo: 'ForgotPassword',
   },
   {
     title: 'Gói thành viên',

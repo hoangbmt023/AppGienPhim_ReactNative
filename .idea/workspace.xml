@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2ec65bdb-d388-44a5-852d-405532a7ad7a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/components/Layouts/Acc/AccountUtilities.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Layouts/Acc/AccountUtilities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Layouts/PhimList/PhimListStyles.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Layouts/PhimList/PhimListStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Login-container/LoginContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Login-container/LoginContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/GoiThanhVien/GoiThanhVien.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/GoiThanhVien/GoiThanhVien.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/GoiThanhVien/GoiThanhVienStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/GoiThanhVien/GoiThanhVienStyle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/Home/HomeStyles.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/Home/HomeStyles.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2yvPGndItYyKwkg2v7W7aRs3CTg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2ec65bdb-d388-44a5-852d-405532a7ad7a" name="Changes" comment="" />
+      <created>1750711981944</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750711981944</updated>
+    </task>
+    <servers />
+  </component>
+</project>

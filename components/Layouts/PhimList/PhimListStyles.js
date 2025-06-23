@@ -81,6 +81,10 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     padding: 5,
     borderRadius: 6
+  },
+  viewCount:{
+    color: "yellow",
+    marginTop: 6
   }
 });
 
