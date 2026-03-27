@@ -41,7 +41,7 @@ function Home() {
                     <Notice />
                     <BoxTitle>NEW</BoxTitle>
                     <FilmList top={3} page={1} limit={10} />
-                    <FilmBannerList page={1} limit={5} />
+                    <FilmBannerList page={1} limit={3} />
                     <BoxTitle>All Phim</BoxTitle>
                     <PhimList page={currentPage} limit={10} onPagination={setPagination} />
                     <RenderPagination data={pagination} onPageChange={setCurrentPage} />
